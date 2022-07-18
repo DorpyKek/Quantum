@@ -19,7 +19,7 @@ class QUANTUMVERSION2_API UPauseWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-	virtual bool Initialize() override;
+	virtual void NativeOnInitialized() override;
 	
 protected:
 	UPROPERTY(BlueprintReadWrite,meta = (BindWidget))

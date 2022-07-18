@@ -8,17 +8,16 @@
 #include "Components/Button.h"
 
 
-bool UPauseWidget::Initialize()
+void UPauseWidget::NativeOnInitialized()
 {
+
+	Super::NativeOnInitialized();
 	const auto Success = Super::Initialize();
 
 	if (ResumeButton)
 	{
 		ResumeButton->OnClicked.AddDynamic(this, &UPauseWidget::ResumeGame);
-	}
-
-	return Success;
-	
+	}	
 }
 
 

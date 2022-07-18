@@ -8,6 +8,7 @@
 #include "GameOverWidget.generated.h"
 
 class UVerticalBox;
+class UButton;
 /**
  * 
  */
@@ -17,7 +18,6 @@ class QUANTUMVERSION2_API UGameOverWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	virtual bool Initialize() override;
 	
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Game Over widget")
@@ -26,8 +26,18 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	UVerticalBox* PlayerStatBox;
 
+	UPROPERTY(meta = (BindWidget))
+	UButton* RestartButton;
+
+	virtual void NativeOnInitialized() override;
+
 private:
 	void OnMatchStateChanged(EQuantumMatchState State);
 	void UpdatePlayerStatistics();
+
+	UFUNCTION()
+	void RestartGame();
+
+	
 	
 };

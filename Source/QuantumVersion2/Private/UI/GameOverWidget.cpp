@@ -4,20 +4,11 @@
 #include "UI/GameOverWidget.h"
 #include "QuantumGameModeBase.h"
 #include "UI/PlayerStatisticsWidget.h"
+#include "Components/Button.h"
+#include "Kismet/GameplayStatics.h"
 #include "Components/VerticalBox.h"
 
-bool UGameOverWidget::Initialize()
-{
-	if(GetWorld())
-	{
-		const auto GameMode = Cast<AQuantumGameModeBase>(GetWorld()->GetAuthGameMode());
-		if (GameMode)
-		{
-			GameMode->OnMatchStateChanged.AddUObject(this, &UGameOverWidget::OnMatchStateChanged);
-		}
-	}
-    return Super::Initialize();
-}
+
 
 void UGameOverWidget::OnMatchStateChanged(EQuantumMatchState State)
 {
@@ -51,5 +42,30 @@ void UGameOverWidget::UpdatePlayerStatistics()
 		PlayerStaticsRowWidget->SetPlayerImageVisibility(Controller->IsPlayerController());
 
 		PlayerStatBox->AddChild(PlayerStaticsRowWidget);
+	}
+}
+
+void UGameOverWidget::RestartGame()
+{
+	const FString CurrentLevelName = UGameplayStatics::GetCurrentLevelName(this);
+	UGameplayStatics::OpenLevel(GetWorld(), FName(CurrentLevelName));
+}
+
+void UGameOverWidget::NativeOnInitialized()
+{
+
+	Super::NativeOnInitialized();
+	
+	if(GetWorld())
+	{
+		const auto GameMode = Cast<AQuantumGameModeBase>(GetWorld()->GetAuthGameMode());
+		if (GameMode)
+		{
+			GameMode->OnMatchStateChanged.AddUObject(this, &UGameOverWidget::OnMatchStateChanged);
+		}
+	}
+	if (RestartButton)
+	{
+		RestartButton->OnClicked.AddDynamic(this, &UGameOverWidget::RestartGame);
 	}
 }

@@ -75,16 +75,15 @@ bool UPlayerHUDWidget::IsWeaponUpdating() const
 
 
 
-bool UPlayerHUDWidget::Initialize()
+void  UPlayerHUDWidget::NativeOnInitialized()
 {
+
+	Super::NativeOnInitialized();
 	if (GetOwningPlayer())
 	{
 		GetOwningPlayer()->GetOnNewPawnNotifier().AddUObject(this, &UPlayerHUDWidget::OnNewPawn);
 		OnNewPawn(GetOwningPlayerPawn());
 	}
-
-	return Super::Initialize();
-	
 }
 
 
