@@ -5,6 +5,7 @@
 #include "Weapon/WeaponComponent.h"
 #include "Engine/World.h"
 #include "QuantumBaseCharacter.h"
+#include "UI/BaseWidget.h"
 #include "Weapons/Projectile.h"
 #include "Weapons/M16Weapon.h"
 #include "ComponentGetter.h"

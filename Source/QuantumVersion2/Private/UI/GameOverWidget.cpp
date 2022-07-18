@@ -6,6 +6,7 @@
 #include "UI/PlayerStatisticsWidget.h"
 #include "Components/Button.h"
 #include "Kismet/GameplayStatics.h"
+#include "QuantumGameInstance.h"
 #include "Components/VerticalBox.h"
 
 
@@ -51,6 +52,16 @@ void UGameOverWidget::RestartGame()
 	UGameplayStatics::OpenLevel(GetWorld(), FName(CurrentLevelName));
 }
 
+void UGameOverWidget::ReturnToMainMenu()
+{
+	if (!GetWorld()) return;
+
+	const auto GameInstance = GetWorld()->GetGameInstance<UQuantumGameInstance>();
+	if (!GameInstance) return;
+
+	UGameplayStatics::OpenLevel(GetWorld(), GameInstance->GetMainMenuLevel());
+}
+
 void UGameOverWidget::NativeOnInitialized()
 {
 
@@ -67,5 +78,10 @@ void UGameOverWidget::NativeOnInitialized()
 	if (RestartButton)
 	{
 		RestartButton->OnClicked.AddDynamic(this, &UGameOverWidget::RestartGame);
+	}
+
+	if (MainMenuButton)
+	{
+		MainMenuButton->OnClicked.AddDynamic(this, &UGameOverWidget::ReturnToMainMenu);
 	}
 }

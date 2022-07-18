@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
 #include "QuantumGameModeBase.h"
+#include "UI/BaseWidget.h"
 #include "GameOverWidget.generated.h"
 
 class UVerticalBox;
@@ -13,7 +13,7 @@ class UButton;
  * 
  */
 UCLASS()
-class QUANTUMVERSION2_API UGameOverWidget : public UUserWidget
+class QUANTUMVERSION2_API UGameOverWidget : public UBaseWidget
 {
 	GENERATED_BODY()
 
@@ -29,6 +29,9 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	UButton* RestartButton;
 
+	UPROPERTY(meta = (BindWidget))
+	UButton* MainMenuButton;
+
 	virtual void NativeOnInitialized() override;
 
 private:
@@ -37,6 +40,9 @@ private:
 
 	UFUNCTION()
 	void RestartGame();
+
+	UFUNCTION()
+	void ReturnToMainMenu();
 
 	
 	

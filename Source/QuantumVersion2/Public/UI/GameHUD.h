@@ -7,7 +7,7 @@
 #include "QuantumGameModeBase.h"
 #include "GameHUD.generated.h"
 
-
+class UBaseWidget;
 /**
  * 
  */
@@ -35,10 +35,10 @@ protected:
 private:
 	
 	UPROPERTY()
-	TMap<EQuantumMatchState, UUserWidget*> GameWidgets;
+	TMap<EQuantumMatchState, UBaseWidget*> GameWidgets;
 
 	UPROPERTY()
-	UUserWidget* CurrentWidget = nullptr;
+	UBaseWidget* CurrentWidget = nullptr;
 
 	void DrawCross();
 

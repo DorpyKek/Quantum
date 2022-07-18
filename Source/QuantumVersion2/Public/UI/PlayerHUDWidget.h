@@ -3,8 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
-#include "Weapons/RiffleWeapon.h"
+#include "UI/BaseWidget.h"
 #include "QuantumBaseCharacter.h"
 #include "PlayerHUDWidget.generated.h"
 
@@ -15,7 +14,7 @@ class UHealthComponent;
  * 
  */
 UCLASS()
-class QUANTUMVERSION2_API UPlayerHUDWidget : public UUserWidget
+class QUANTUMVERSION2_API UPlayerHUDWidget : public UBaseWidget
 {
 	GENERATED_BODY()
 	

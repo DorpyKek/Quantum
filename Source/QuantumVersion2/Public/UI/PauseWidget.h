@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
 #include "QuantumGameModeBase.h"
+#include "UI/BaseWidget.h"
 #include "PauseWidget.generated.h"
 
 
@@ -14,7 +14,7 @@ class UButton;
  * 
  */
 UCLASS()
-class QUANTUMVERSION2_API UPauseWidget : public UUserWidget
+class QUANTUMVERSION2_API UPauseWidget : public UBaseWidget
 {
 	GENERATED_BODY()
 	
@@ -24,11 +24,15 @@ public:
 protected:
 	UPROPERTY(BlueprintReadWrite,meta = (BindWidget))
 	UButton* ResumeButton;
-	
-	
-	
+
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	UButton* MainMenuButton;
+		
 
 private:
 	UFUNCTION()
 	void ResumeGame();
+
+	UFUNCTION()
+	void ReturnToMainMenu();
 };

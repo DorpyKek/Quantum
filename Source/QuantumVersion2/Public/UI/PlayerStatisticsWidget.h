@@ -13,7 +13,7 @@ class UTextBlock;
  * 
  */
 UCLASS()
-class QUANTUMVERSION2_API UPlayerStatisticsWidget : public UUserWidget
+class QUANTUMVERSION2_API UPlayerStatisticsWidget : public UBaseWidget
 {
 	GENERATED_BODY()
 

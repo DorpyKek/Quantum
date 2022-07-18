@@ -5,13 +5,14 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "QuantumGameModeBase.h"
+#include "UI/BaseWidget.h"
 #include "TimeRoundWidget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class QUANTUMVERSION2_API UTimeRoundWidget : public UUserWidget
+class QUANTUMVERSION2_API UTimeRoundWidget : public UBaseWidget
 {
 	GENERATED_BODY()
 

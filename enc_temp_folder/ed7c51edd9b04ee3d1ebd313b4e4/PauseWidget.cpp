@@ -35,9 +35,6 @@ void UPauseWidget::ResumeGame()
 	if (!GetWorld() || !GetWorld()->GetAuthGameMode()) return;
 
 	GetWorld()->GetAuthGameMode()->ClearPause();
-
-	ResumeButton->SetVisibility(ESlateVisibility::Hidden);
-	MainMenuButton->SetVisibility(ESlateVisibility::Hidden);
 }
 
 void UPauseWidget::ReturnToMainMenu()

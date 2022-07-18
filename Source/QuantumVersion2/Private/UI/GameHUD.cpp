@@ -3,7 +3,7 @@
 
 #include "UI/GameHUD.h"
 #include "Engine/Canvas.h"
-#include "Blueprint/UserWidget.h"
+#include "UI/BaseWidget.h"
 #include "QuantumGameModeBase.h"
 
 
@@ -20,9 +20,9 @@ void AGameHUD::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	GameWidgets.Add(EQuantumMatchState::Playing, CreateWidget<UUserWidget>(GetWorld(), PlayerHUDWidgetClass));
-	GameWidgets.Add(EQuantumMatchState::Pause, CreateWidget<UUserWidget>(GetWorld(), PauseWidgetClass));
-	GameWidgets.Add(EQuantumMatchState::GameOver, CreateWidget<UUserWidget>(GetWorld(), GameOverWidgetClass));
+	GameWidgets.Add(EQuantumMatchState::Playing, CreateWidget<UBaseWidget>(GetWorld(), PlayerHUDWidgetClass));
+	GameWidgets.Add(EQuantumMatchState::Pause, CreateWidget<UBaseWidget>(GetWorld(), PauseWidgetClass));
+	GameWidgets.Add(EQuantumMatchState::GameOver, CreateWidget<UBaseWidget>(GetWorld(), GameOverWidgetClass));
 
 	for (auto GameWidgetPair : GameWidgets)
 	{
@@ -80,6 +80,7 @@ void AGameHUD::OnMatchStateChanged(EQuantumMatchState State)
 	if (CurrentWidget)
 	{
 		CurrentWidget->SetVisibility(ESlateVisibility::Visible);
+		CurrentWidget->Show();
 	}
 
 
