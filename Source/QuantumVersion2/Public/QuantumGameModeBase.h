@@ -29,14 +29,14 @@ struct FDataOfGame
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game", meta = (ClampMin = "1", ClampMax = "100"))
 	int32 PlayersNum = 2;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game", meta = (ClampMin = "1", ClampMax = "10"))
-	int32 RoundsNum = 5;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game", meta = (ClampMin = "1", ClampMax = "100"))
+	int32 RoundsNum = 2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game", meta = (ClampMin = "1", ClampMax = "300"))
-	int32 Seconds = 20; //all in seconds
+	int32 Seconds; //all in seconds
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game", meta = (ClampMin = "0", ClampMax = "5"))
-	int32 Minutes = 0; //all in minutes
+	int32 Minutes; //all in minutes
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FLinearColor DefaultColor = FLinearColor::Red;   //this color is goint to be set if our bp hasnt been set
@@ -78,6 +78,8 @@ public:
 	virtual bool SetPause(APlayerController* PC, FCanUnpause CanUnpauseDelegate = FCanUnpause()) override;
 
 	virtual bool ClearPause() override;
+
+	int32 RoundsLeft();
 	
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Game")
@@ -114,5 +116,7 @@ private:
 	
 
 	void SetMatchState(EQuantumMatchState State);
+
+	
 	
 };

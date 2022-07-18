@@ -37,10 +37,10 @@ int32 UTimeRoundWidget::GetCurrentRound() const
 
 int32 UTimeRoundWidget::GetRoundsNum() const 
 {
-	const auto GameMode = Cast<AQuantumGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+	const auto GameMode = Cast<AQuantumGameModeBase>(GetWorld()->GetAuthGameMode());
 	if (!GameMode) return 0;
 
-	return GameData.RoundsNum;
+	return GameMode->RoundsLeft();
 }
 
 bool UTimeRoundWidget::IsTimeLess10() const

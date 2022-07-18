@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "QuantumBaseCharacter.h"
 #include "QuantumGameModeBase.h"
+#include "UI/PauseWidget.h"
 #include "QuantumPlayerController.generated.h"
 
 class URespawnComponent;
@@ -29,11 +30,13 @@ protected:
 	virtual void OnPossess(APawn* NewPawn) override;
 
 	virtual void SetupInputComponent() override;
+	
 
 private:
 	void OnGamePaused();
 
 
 	void OnMatchStateChanged(EQuantumMatchState State);
+	
 	
 };

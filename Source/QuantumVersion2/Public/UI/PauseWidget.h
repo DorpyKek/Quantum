@@ -25,7 +25,8 @@ protected:
 	UPROPERTY(BlueprintReadWrite,meta = (BindWidget))
 	UButton* ResumeButton;
 	
-
+	
+	
 
 private:
 	UFUNCTION()

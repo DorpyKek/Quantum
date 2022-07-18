@@ -4,6 +4,7 @@
 #include "QuantumPlayerController.h"
 #include "Components/RespawnComponent.h"
 #include "QuantumGameModeBase.h"
+#include "UI/PauseWidget.h"
 #include "Gameframework/GameModeBase.h"
 
 AQuantumPlayerController::AQuantumPlayerController()
@@ -39,6 +40,7 @@ void AQuantumPlayerController::SetupInputComponent()
 	if (!InputComponent) return;
 
 	InputComponent->BindAction("Pause", IE_Pressed, this, &AQuantumPlayerController::OnGamePaused);
+	
 }
 
 void AQuantumPlayerController::OnGamePaused()
@@ -62,4 +64,6 @@ void AQuantumPlayerController::OnMatchStateChanged(EQuantumMatchState State)
 		bShowMouseCursor = true;
 	}
 }
+
+
 

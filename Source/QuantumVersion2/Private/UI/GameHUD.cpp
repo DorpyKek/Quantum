@@ -22,6 +22,7 @@ void AGameHUD::BeginPlay()
 	
 	GameWidgets.Add(EQuantumMatchState::Playing, CreateWidget<UUserWidget>(GetWorld(), PlayerHUDWidgetClass));
 	GameWidgets.Add(EQuantumMatchState::Pause, CreateWidget<UUserWidget>(GetWorld(), PauseWidgetClass));
+	GameWidgets.Add(EQuantumMatchState::GameOver, CreateWidget<UUserWidget>(GetWorld(), GameOverWidgetClass));
 
 	for (auto GameWidgetPair : GameWidgets)
 	{

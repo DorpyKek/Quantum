@@ -35,6 +35,6 @@ public:
 	bool IsFewSeconds() const;
 
 	
-	FDataOfGame GameData;
+	FDataOfGame DataOfGame;
 	
 };

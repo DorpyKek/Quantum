@@ -95,7 +95,7 @@ bool AQuantumGameModeBase::ClearPause()
 
 
 void AQuantumGameModeBase::BotSpawn()
-{  
+{
 	if (!GetWorld()) return;
 
 	for (int32 i = 0; i < DataOfGame.PlayersNum; i++)
