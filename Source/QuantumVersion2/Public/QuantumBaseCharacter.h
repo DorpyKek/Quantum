@@ -20,7 +20,6 @@ public:
 	// Sets default values for this character's properties
 	AQuantumBaseCharacter(const FObjectInitializer& ObjInit);
 
-	virtual void OnHealthChanged(float Health, float DeltaHealth);
 
 protected:
 	// Called when the game starts or when spawned
@@ -50,10 +49,12 @@ protected:
 
 	virtual void OnDeath();
 
+	virtual void OnHealthChanged(float Health, float DeltaHealth);
+
+
 
 public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	
 
 
 	void SetPlayerColor(const FLinearColor& Color);

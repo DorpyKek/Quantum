@@ -4,9 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "UI/BaseWidget.h"
+#include "MainMenu/UI/LevelSelectorWidget.h"
 #include "MainMenuWidget.generated.h"
 
 class UButton;
+class UHorizontalBox;
+class UQuantumGameInstance;
+class ULevelSelectorWidget;
 /**
  * 
  */
@@ -24,7 +28,25 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	UButton* QuitButton;
 
+	UPROPERTY(meta = (BindWidget))
+	UHorizontalBox* LevelSelectorBox;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Levels")
+	TSubclassOf<UUserWidget>LevelItemClass;
+
+	
+		
+
 private:
+
+	UPROPERTY()
+	TArray<ULevelSelectorWidget*>LevelSelectorWidgets;
+
+	void CreateLevelItems();
+
+	void OnLevelSelected(const FLevelData& Data);
+
+	UQuantumGameInstance* GetMyGameInstance() const;
 	
 	UFUNCTION()
 	void StartGame();

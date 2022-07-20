@@ -64,11 +64,7 @@ void AQuantumBaseCharacter::OnGroundLanded(const FHitResult& Hit)
 	
 }
 
-// Called every frame
-void AQuantumBaseCharacter::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
+
 
 
 void AQuantumBaseCharacter::SetPlayerColor(const FLinearColor& Color)

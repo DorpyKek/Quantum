@@ -71,7 +71,7 @@ void AAIBaseCharacter::UpdateHeatlhWidgetVisibility()
 {
 	if (!GetWorld() || !GetWorld()->GetFirstPlayerController()) return;
 
-	const auto PlayerLocation = GetWorld()->GetFirstPlayerController()->GetPawnOrSpectator()->GetActorLocation();
+	const auto PlayerLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
 	const auto Distance = FVector::Distance(PlayerLocation, GetActorLocation());
 	HealthWidgetComponent->SetVisibility(Distance < HealtVisibilityPercentageDistance, true);
 }

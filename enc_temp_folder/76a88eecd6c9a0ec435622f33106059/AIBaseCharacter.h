@@ -35,7 +35,7 @@ protected:
 	UWidgetComponent* HealthWidgetComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HealthBar")
-	float HealtVisibilityPercentageDistance = 1000.0f;
+	float HealtVisibilityPercentageDistance = 1200.0f;
 
 private:
 	void UpdateHeatlhWidgetVisibility();
