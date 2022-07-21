@@ -41,7 +41,8 @@ void UGameOverWidget::UpdatePlayerStatistics()
 		PlayerStaticsRowWidget->SetDeathsText(FText::FromString(FString::FromInt(PlayerState->GetDeaths())));
 		PlayerStaticsRowWidget->SetTeamNumberText(FText::FromString(FString::FromInt(PlayerState->GetTeamId())));
 		PlayerStaticsRowWidget->SetPlayerImageVisibility(Controller->IsPlayerController());
-
+		PlayerStaticsRowWidget->SetTeamImageColor(PlayerState->GetColorOfTeam());
+		
 		PlayerStatBox->AddChild(PlayerStaticsRowWidget);
 	}
 }

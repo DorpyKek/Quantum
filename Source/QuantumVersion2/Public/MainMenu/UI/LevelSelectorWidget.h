@@ -63,6 +63,12 @@ private:
 
 	UFUNCTION()
 	void OnLevelButtonClicked();
+
+	UFUNCTION()
+	void OnLevelHovered();
+
+	UFUNCTION()
+	void OnLevelUnHovered();
 		
 	
 };

@@ -22,9 +22,9 @@ void ULevelSelectorWidget::SetLevelData(const FLevelData& Data)
 
 void ULevelSelectorWidget::SetSelected(bool IsSelected)
 {
-	if (LevelImage)
+	if (FrameImage)
 	{
-		LevelImage->SetColorAndOpacity(IsSelected ? FLinearColor::Red : FLinearColor::White);
+		FrameImage->SetColorAndOpacity(IsSelected ? FLinearColor::Red : FLinearColor::White);
 	}
 }
 

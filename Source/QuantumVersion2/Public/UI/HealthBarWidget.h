@@ -16,6 +16,7 @@ class QUANTUMVERSION2_API UHealthBarWidget : public UUserWidget
 	GENERATED_BODY()
 public:
 	void SetHealthPercent(float Health);
+	int32 GetKills() const;
 
 protected:
 	UPROPERTY(meta = (BindWidget))
@@ -32,6 +33,7 @@ protected:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HealthBar")
 	FLinearColor LowHealthColor = FLinearColor::Red;
+
 		
 
 	

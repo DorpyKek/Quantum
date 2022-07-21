@@ -6,7 +6,6 @@
 #include "QuantumGameInstance.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Components/HorizontalBox.h"
-#include "Components/TextBlock.h"
 #include "MainMenu/UI/LevelSelectorWidget.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -22,12 +21,6 @@ void UMainMenuWidget::NativeOnInitialized()
 	if (QuitButton)
 	{
 		QuitButton->OnClicked.AddDynamic(this, &UMainMenuWidget::QuitGame);
-		QuitButton->OnHovered.AddDynamic(this, &UMainMenuWidget::OnButtonHovered);
-		QuitButton->OnUnhovered.AddDynamic(this, &UMainMenuWidget::OnButtonUnhovered);
-	}
-	if (QuitGameTextBlock)
-	{
-		QuitGameTextBlock->SetVisibility(ESlateVisibility::Hidden);
 	}
 
 	CreateLevelItems();
@@ -35,38 +28,15 @@ void UMainMenuWidget::NativeOnInitialized()
 
 void UMainMenuWidget::StartGame()
 {
-	PlayAnimation(LoadAnimation);
+	const auto GameInstance = GetMyGameInstance();
+	if (!GameInstance) return;
+
+	UGameplayStatics::OpenLevel(GetWorld(), GameInstance->GetStartupLevel().LevelName);
 }
 
 void UMainMenuWidget::QuitGame()
 {
 	UKismetSystemLibrary::QuitGame(this, GetOwningPlayer(), EQuitPreference::Quit, true);
-}
-
-void UMainMenuWidget::OnButtonHovered()
-{
-	PlayAnimation(QuitAnimation);
-	GetWorld()->GetTimerManager().SetTimer(AnimationTimerHandle, this, &UMainMenuWidget::VisibilityShow, 1, false);
-	GetWorld()->GetTimerManager().ClearTimer(AnimationTimerHandle);
-	
-}
-
-void UMainMenuWidget::OnButtonUnhovered()
-{
-	PlayAnimationReverse(QuitAnimation);
-	VisibilityClose();
-	GetWorld()->GetTimerManager().ClearTimer(AnimationTimerHandle);
-	
-}
-
-void UMainMenuWidget::OnAnimationFinished_Implementation(const UWidgetAnimation* Animation)
-{
-	if (Animation != LoadAnimation) return;
-
-	const auto GameInstance = GetMyGameInstance();
-	if (!GameInstance) return;
-
-	UGameplayStatics::OpenLevel(GetWorld(), GameInstance->GetStartupLevel().LevelName);
 }
 
 void UMainMenuWidget::CreateLevelItems()
@@ -125,20 +95,5 @@ UQuantumGameInstance* UMainMenuWidget::GetMyGameInstance() const
 	return GetWorld()->GetGameInstance<UQuantumGameInstance>();
 }
 
-void UMainMenuWidget::VisibilityShow()
-{
-	if (QuitGameTextBlock)
-	{
-		QuitGameTextBlock->SetVisibility(ESlateVisibility::Visible);
-	}
-}
-
-void UMainMenuWidget::VisibilityClose()
-{
-	if (QuitGameTextBlock)
-	{
-		QuitGameTextBlock->SetVisibility(ESlateVisibility::Hidden);
-	}
-}
 
 

@@ -10,6 +10,7 @@
 
 class UWidgetAnimation;
 class UHealthComponent;
+class UProgressBar;
 /**
  * 
  */
@@ -19,6 +20,8 @@ class QUANTUMVERSION2_API UPlayerHUDWidget : public UBaseWidget
 	GENERATED_BODY()
 	
 public:
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	int32 GetKillsNumber() const;
 	
 	UFUNCTION(BlueprintCallable, Category = "UI")
 	float GetHealthPercent() const; 
@@ -41,6 +44,18 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "UI")
 	void OnTakeDamage();
 
+	UPROPERTY(meta = (BindWidget))
+	UProgressBar* HealthProgressBar;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HealthBar")
+	float LowPercentageColor = 0.6f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HealthBar")
+	FLinearColor HealthColor = FLinearColor::Green;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HealthBar")
+	FLinearColor LowHealthColor = FLinearColor::Red;
+
 	virtual void NativeOnInitialized() override;
 	
 
@@ -55,4 +70,6 @@ private:
 	void OnHealthChanged(float Health,float HealthDelta);
 
 	void OnNewPawn(APawn* Pawn);
+
+	void UpdateHealthBar();
 };

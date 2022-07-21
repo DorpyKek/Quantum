@@ -17,3 +17,8 @@ void UHealthBarWidget::SetHealthPercent(float Health)
 
 	HealthProgressBar->SetPercent(Health);
 }
+
+int32 UHealthBarWidget::GetKills() const
+{
+	return int32();
+}

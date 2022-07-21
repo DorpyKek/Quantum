@@ -4,12 +4,20 @@
 #include "UI/PlayerHUDWidget.h"
 #include "Weapon/WeaponComponent.h"
 #include "Engine/World.h"
-#include "QuantumBaseCharacter.h"
 #include "UI/BaseWidget.h"
-#include "Weapons/Projectile.h"
-#include "Weapons/M16Weapon.h"
 #include "ComponentGetter.h"
+#include "Components/ProgressBar.h"
+#include "GameCore/QuantumPlayerState.h"
 #include "Components/HealthComponent.h"
+
+int32 UPlayerHUDWidget::GetKillsNumber() const
+{
+	const auto Controller = GetOwningPlayer();
+	if (!Controller) return 0;
+
+	const auto PlayerState = Cast<AQuantumPlayerState>(Controller->PlayerState);
+	return PlayerState ? PlayerState->GetKills() : 0;
+}
 
 float UPlayerHUDWidget::GetHealthPercent() const
 {
@@ -106,7 +114,7 @@ void UPlayerHUDWidget::OnHealthChanged(float Health,float HealthDelta)
 	{
 		OnTakeDamage();
 	}
-	
+	UpdateHealthBar();
 }
 
 void UPlayerHUDWidget::OnNewPawn(APawn* Pawn)
@@ -116,6 +124,15 @@ void UPlayerHUDWidget::OnNewPawn(APawn* Pawn)
 	if (HealthComponent && !HealthComponent->OnHealthChanged.IsBoundToObject(this))
 	{
 		HealthComponent->OnHealthChanged.AddUObject(this, &UPlayerHUDWidget::OnHealthChanged);
+	}
+	UpdateHealthBar();
+}
+
+void UPlayerHUDWidget::UpdateHealthBar()
+{
+	if (HealthProgressBar)
+	{
+		HealthProgressBar->SetFillColorAndOpacity(GetHealthPercent() > LowPercentageColor ? HealthColor : LowHealthColor);
 	}
 }
 

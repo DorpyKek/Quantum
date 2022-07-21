@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "UI/BaseWidget.h"
 #include "PlayerStatisticsWidget.generated.h"
 
 
@@ -23,6 +24,7 @@ public:
 	void SetDeathsText(const FText& Text);
 	void SetTeamNumberText(const FText& Text);
 	void SetPlayerImageVisibility(bool Visible);
+	void SetTeamImageColor(const FLinearColor& Color);
 
 protected:
 
@@ -41,5 +43,8 @@ protected:
 
 	UPROPERTY(meta = (BindWidget))
 	UImage* PlayerIndicatorImage;
+
+	UPROPERTY(meta = (BindWidget))
+	UImage* TeamImage;
 	
 };

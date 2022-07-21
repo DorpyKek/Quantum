@@ -11,8 +11,6 @@ class UButton;
 class UHorizontalBox;
 class UQuantumGameInstance;
 class ULevelSelectorWidget;
-class UWidgetAnimation;
-class UTextBlock;
 /**
  * 
  */
@@ -36,18 +34,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Levels")
 	TSubclassOf<UUserWidget>LevelItemClass;
 
-	UPROPERTY(meta = (BindWidgetAnim),Transient)
-	UWidgetAnimation* QuitAnimation;
-
-	UPROPERTY(meta = (BindWidgetAnim),Transient)
-	UWidgetAnimation* LoadAnimation;
 	
-	UPROPERTY(meta = (BindWidget))
-	UTextBlock* QuitGameTextBlock;
-
-	FTimerHandle AnimationTimerHandle;
-
-	virtual void OnAnimationFinished_Implementation(const UWidgetAnimation* Animation) override;
+		
 
 private:
 
@@ -59,21 +47,11 @@ private:
 	void OnLevelSelected(const FLevelData& Data);
 
 	UQuantumGameInstance* GetMyGameInstance() const;
-
-	void VisibilityShow();
-
-	void VisibilityClose();
 	
 	UFUNCTION()
 	void StartGame();
 
 	UFUNCTION()
 	void QuitGame();
-
-	UFUNCTION()
-	void OnButtonHovered();
-
-	UFUNCTION()
-	void OnButtonUnhovered();
 	
 };
