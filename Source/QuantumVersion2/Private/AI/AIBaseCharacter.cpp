@@ -7,6 +7,7 @@
 #include "Weapon/AIWeaponComponent.h"
 #include "BrainComponent.h"
 #include "ComponentGetter.h"
+#include "Weapon/WeaponComponent.h"
 #include "UI/HealthBarWidget.h"
 #include "Components/WidgetComponent.h"
 #include "Components/HealthComponent.h"
@@ -42,8 +43,8 @@ void AAIBaseCharacter::OnDeath()
 	{
 		PlayerController->BrainComponent->Cleanup();
 	}
-	
 
+	
 }
 
 void AAIBaseCharacter::BeginPlay()

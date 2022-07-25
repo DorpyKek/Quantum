@@ -9,6 +9,7 @@
 #include "Components/TextBlock.h"
 #include "MainMenu/UI/LevelSelectorWidget.h"
 #include "Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
 
 void UMainMenuWidget::NativeOnInitialized()
 {
@@ -36,6 +37,7 @@ void UMainMenuWidget::NativeOnInitialized()
 void UMainMenuWidget::StartGame()
 {
 	PlayAnimation(LoadAnimation);
+	UGameplayStatics::PlaySound2D(GetWorld(), StartGameSound);
 }
 
 void UMainMenuWidget::QuitGame()

@@ -7,6 +7,7 @@
 #include "MainMenu/UI/LevelSelectorWidget.h"
 #include "QuantumGameInstance.generated.h"
 
+class USoundClass;
 /**
  * 
  */
@@ -22,6 +23,8 @@ public:
 	TArray<FLevelData>GetLevelsData() const { return LevelsData; }
 	
 	FName GetMainMenuLevel() const { return MenuLevelName; }
+
+	void ToggleVolume();
 protected:
 	
 
@@ -30,6 +33,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Levels")
 	TArray<FLevelData>LevelsData;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundClass* MasterSoundClass;
 
 private:
 	UPROPERTY(EditDefaultsOnly,Category = "Game Instance")

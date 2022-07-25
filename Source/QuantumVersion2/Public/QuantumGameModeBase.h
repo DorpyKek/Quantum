@@ -81,6 +81,7 @@ public:
 
 	int32 RoundsLeft();
 	
+	
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Game")
 	TSubclassOf<AAIController> AIControllerClass;
@@ -113,7 +114,7 @@ private:
 
 	void GameOver();
 
-	
+	void StopAllFire();
 
 	void SetMatchState(EQuantumMatchState State);
 

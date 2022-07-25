@@ -11,6 +11,7 @@ class UVFXComponent;
 class UCameraShakeBase;
 class UNiagaraComponent;
 class UNiagaraSystem;
+class UAudioComponent;
 /**
  * 
  */
@@ -25,6 +26,7 @@ public:
 	
 	virtual void StartFire() override;
 	virtual void StopFire() override;
+	virtual void Zoom(bool Enabled) override;
 
 	bool Hitted = false;
 
@@ -49,6 +51,13 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
 	TSubclassOf<UCameraShakeBase> ShootCameraShake;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SFX")
+	UAudioComponent* FireAudioComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "FOV")
+	float FOVAngle = 60.0f;
+	
+
 
 	//creating beginplay function
 	virtual void BeginPlay() override;
@@ -61,13 +70,15 @@ private:
 	UPROPERTY()
 	UNiagaraComponent* MuzzleFXComponent;
 
-	void InitializeMuzzleFX();
+	void InitFX();
 	
-	void SetFXVisibility(bool Visible);
+	void SetFXActive(bool IsActive);
 
 	void SpawnTrace(const FVector& TraceStart, const FVector& TraceEnd);
 
 	AController* GetController() const;
+
+	float DefaultCameraFOV = 90.0f;
 
 	
 };

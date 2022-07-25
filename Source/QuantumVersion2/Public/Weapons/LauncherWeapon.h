@@ -7,6 +7,7 @@
 #include "LauncherWeapon.generated.h"
 
 class AProjectile;
+class USoundCue;
 
 UCLASS()
 class QUANTUMVERSION2_API ALauncherWeapon : public ARiffleWeapon
@@ -23,5 +24,8 @@ protected:
 	TSubclassOf<AProjectile> ProjectileClass;
 	
 	virtual void Shoot() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundCue* NoAmmoSoundCue;
 	
 };

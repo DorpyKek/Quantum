@@ -38,5 +38,5 @@ private:
 
 	void OnMatchStateChanged(EQuantumMatchState State);
 	
-	
+	void OnMuteSound();
 };

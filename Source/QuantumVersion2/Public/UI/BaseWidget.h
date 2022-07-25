@@ -7,6 +7,7 @@
 #include "BaseWidget.generated.h"
 
 class UWidgetAnimation;
+class USoundCue;
 /**
  * 
  */
@@ -21,5 +22,8 @@ public:
 protected:
 	UPROPERTY(meta = (BindWidgetAnim), Transient)
 	UWidgetAnimation* ShowAnimation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundCue* WidgetOpenSound;
 	
 };

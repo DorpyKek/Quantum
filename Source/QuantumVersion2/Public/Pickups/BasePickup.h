@@ -7,6 +7,7 @@
 #include "BasePickup.generated.h"
 
 class USphereComponent;
+class USoundCue;
 
 UCLASS()
 class QUANTUMVERSION2_API ABasePickup : public AActor
@@ -32,6 +33,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "PickUp")
 	float TimeForRespawn = 5.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundCue* PickUpSoundCue;
 	
 
 private:

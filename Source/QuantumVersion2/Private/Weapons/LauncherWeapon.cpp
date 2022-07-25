@@ -4,6 +4,7 @@
 #include "Weapons/LauncherWeapon.h"
 #include "Weapons/Projectile.h"
 #include "Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
 #include "DrawDebugHelpers.h"
 
 DECLARE_LOG_CATEGORY_CLASS(LauncherLog, All, All);
@@ -13,7 +14,11 @@ void ALauncherWeapon::StartFire()
 {
 	Super::StartFire();
 
-	if (IsAmmoClipEmpty() || IsAmmoEmpty()) return;
+	if (IsAmmoEmpty())
+	{
+		UGameplayStatics::SpawnSoundAtLocation(GetWorld(), NoAmmoSoundCue, GetActorLocation());
+		return;
+	}
 
 	Shoot();
 }
@@ -47,5 +52,5 @@ void ALauncherWeapon::Shoot()
 
 	DecreaseAmmo() ;
 	SpawnFX();
-	
+	UGameplayStatics::SpawnSoundAttached(ShotSoundCue, WeaponMesh, MuzzleSocketName);
 }

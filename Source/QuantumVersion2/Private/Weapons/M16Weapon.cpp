@@ -8,7 +8,10 @@
 #include "Weapons/Components/VFXComponent.h"
 #include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
 #include "DrawDebugHelpers.h"
+#include "Components/AudioComponent.h"
 
 
 
@@ -20,15 +23,27 @@ AM16Weapon::AM16Weapon()
 void AM16Weapon::StartFire() {
 	GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &AM16Weapon::Shoot, TimeBetweenShots, true);
 	Shoot();
-	InitializeMuzzleFX();
+	InitFX();
 }
 
 void AM16Weapon::StopFire() {
 	GetWorld()->GetTimerManager().ClearTimer(ShootTimerHandle);
-	SetFXVisibility(false);
+	SetFXActive(false);
 	
+}
+
+void AM16Weapon::Zoom(bool Enabled)
+{
+	const auto Controller = Cast<APlayerController>(GetController());
+	if (!Controller || !Controller->PlayerCameraManager) return;
 	
-	
+	if (Enabled)
+	{
+		DefaultCameraFOV = Controller->PlayerCameraManager->GetFOVAngle();
+	}
+
+	const TInterval <float> FOV(60.0f, 90.0f);
+	Controller->PlayerCameraManager->SetFOV(Enabled ? FOVAngle : DefaultCameraFOV);
 }
 
 void AM16Weapon::Shoot()
@@ -72,10 +87,12 @@ void AM16Weapon::Shoot()
 		
 		VFXComponent->PlayFireFX(HitResult);
 		
+		FPointDamageEvent PointDamageEvent;
+		PointDamageEvent.HitInfo = HitResult;
+
 		if (HitResult.GetActor())
 		{
-			Hitted = true;
-			HitResult.GetActor()->TakeDamage(Damage, FDamageEvent(), GetController(), this);	
+			HitResult.GetActor()->TakeDamage(Damage, PointDamageEvent, GetController(), this);	
 		}
 	}
 	
@@ -91,21 +108,32 @@ void AM16Weapon::BeginPlay()
 	
 }
 
-void AM16Weapon::InitializeMuzzleFX()
+void AM16Weapon::InitFX()
 {
 	if(!MuzzleFXComponent)
 	{
 		MuzzleFXComponent = SpawnFX();
 	}
-	SetFXVisibility(true);
+
+	if(!FireAudioComponent)
+	{
+		FireAudioComponent = UGameplayStatics::SpawnSoundAttached(ShotSoundCue, WeaponMesh, MuzzleSocketName);
+	}
+
+	SetFXActive(true);
 }
 
-void AM16Weapon::SetFXVisibility(bool Visible)
+void AM16Weapon::SetFXActive(bool IsActive)
 {
 	if (MuzzleFXComponent)
 	{
-		MuzzleFXComponent->SetPaused(!Visible);
-		MuzzleFXComponent->SetVisibility(Visible, true);
+		MuzzleFXComponent->SetPaused(!IsActive);
+		MuzzleFXComponent->SetVisibility(IsActive, true);
+	}
+
+	if (FireAudioComponent)
+	{
+		FireAudioComponent->SetPaused(!IsActive);
 	}
 }
 
@@ -126,8 +154,5 @@ AController* AM16Weapon::GetController() const
 {
 	const auto Pawn = Cast<APawn>(GetOwner());
 	return Pawn ? Pawn->GetController() : nullptr;
-
-
-
 }
 

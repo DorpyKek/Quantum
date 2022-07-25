@@ -7,8 +7,10 @@
 #include "AI/AIBaseController.h"
 #include "UI/GameHUD.h"
 #include "GameCore/QuantumPlayerState.h"
+#include "Weapons/RiffleWeapon.h"
 #include "ComponentGetter.h"
 #include "Components/RespawnComponent.h"
+#include "Weapon/WeaponComponent.h"
 #include "EngineUtils.h"
 
 DEFINE_LOG_CATEGORY_STATIC(GameModeLog, All, All);
@@ -60,6 +62,7 @@ void AQuantumGameModeBase::Killed(AController* KillerController, AController* Vi
 	if (VictimPlayerState)
 	{
 		VictimPlayerState->AddDeath();
+		
 	}
 	
 	StartRespawn(VictimController);
@@ -77,6 +80,7 @@ bool AQuantumGameModeBase::SetPause(APlayerController* PC, FCanUnpause CanUnpaus
 	if (Pause)
 	{
 		SetMatchState(EQuantumMatchState::Pause);
+		StopAllFire();
 	}
 	return Pause;
 }
@@ -102,6 +106,7 @@ void AQuantumGameModeBase::BotSpawn()
 	{
 		FActorSpawnParameters SpawnInfo;
 		SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
 		const auto AIController = GetWorld()->SpawnActor<AAIController>(AIControllerClass, SpawnInfo);
 		RestartPlayer(AIController);
 	}
@@ -119,7 +124,7 @@ void AQuantumGameModeBase::RoundStart()
 
 void AQuantumGameModeBase::TimerUpdate()
 {
-	UE_LOG(GameModeLog, Error, TEXT("Time left: %i:%i / Round: %i/%i "),MinutesCountDown,SecondsCountDown,CurrenRound,DataOfGame.RoundsNum);
+	//UE_LOG(GameModeLog, Error, TEXT("Time left: %i:%i / Round: %i/%i "),MinutesCountDown,SecondsCountDown,CurrenRound,DataOfGame.RoundsNum);
 	
 	if (MinutesCountDown == 0 && SecondsCountDown == 0)
 	{
@@ -172,8 +177,6 @@ void AQuantumGameModeBase::ResetOnePlayer(AController* Controller)
 
 	RestartPlayer(Controller);
 	SetColorOfPlayer(Controller);	
-	
-	
 }
 
 void AQuantumGameModeBase::CreateTeamInfo()
@@ -266,6 +269,18 @@ void AQuantumGameModeBase::SetMatchState(EQuantumMatchState State)
 	
 	MatchState = State;
 	OnMatchStateChanged.Broadcast(MatchState);
+}
+
+void AQuantumGameModeBase::StopAllFire()
+{
+	for(auto Pawn : TActorRange<APawn>(GetWorld()))
+	{
+		const auto WeaponComponent = UComponentGetter::GetPlayerComponent<UWeaponComponent>(Pawn);
+		if (!WeaponComponent) continue;
+
+		WeaponComponent->EndFire();
+		WeaponComponent->Zoom(false);
+	}
 }
 
 int32 AQuantumGameModeBase::RoundsLeft()

@@ -10,6 +10,7 @@
 //using forward declaration to decalre some component class
 class UHealthComponent;
 class UWeaponComponent;
+class USoundCue;
 
 UCLASS()
 class QUANTUMVERSION2_API AQuantumBaseCharacter : public ACharacter
@@ -50,6 +51,12 @@ protected:
 	virtual void OnDeath();
 
 	virtual void OnHealthChanged(float Health, float DeltaHealth);
+
+	virtual void TurnOff() override;
+	virtual void Reset() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundCue* DeathSoundCue;
 
 
 

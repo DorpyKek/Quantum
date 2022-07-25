@@ -6,13 +6,18 @@
 #include "ComponentGetter.h"
 #include "Components/HealthComponent.h"
 #include "Perception/AISense_Sight.h"
+#include "Perception/AISense_Damage.h"
 
 AActor* UCharacterAIPerceptionComponent::GetClosestEnemy() const
 {
 	//creating massive to contain all characters that has been seen by ai
 	TArray<AActor*> PerceiveCharacters;
 	GetCurrentlyPerceivedActors(UAISense_Sight::StaticClass(), PerceiveCharacters);
-	if (PerceiveCharacters.Num() == 0) return nullptr;
+	if (PerceiveCharacters.Num() == 0)
+	{
+		GetCurrentlyPerceivedActors(UAISense_Damage::StaticClass(), PerceiveCharacters);
+		if (PerceiveCharacters.Num() == 0) return nullptr;
+	}
 
 	const auto Controller = Cast<AAIController>(GetOwner());
 	if (!Controller) return nullptr;

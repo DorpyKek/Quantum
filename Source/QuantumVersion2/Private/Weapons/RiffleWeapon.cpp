@@ -10,6 +10,8 @@
 #include "NiagaraFunctionLibrary.h"
 #include "QuantumGameModeBase.h"
 #include "NiagaraComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
 #include "Weapons/RiffleWeapon.h"
 
 DECLARE_LOG_CATEGORY_CLASS(FireLog, All, All);

@@ -2,6 +2,8 @@
 
 
 #include "Pickups/BasePickup.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
 #include "Components/SphereComponent.h"
 
 
@@ -50,6 +52,7 @@ void ABasePickup::NotifyActorBeginOverlap(AActor* OtherActor)
 	if (GetPickupInfo(Pawn))
 	{
 		PickupTook();
+		UGameplayStatics::SpawnSoundAtLocation(GetWorld(), PickUpSoundCue, GetActorLocation());
 	}
 	
 	

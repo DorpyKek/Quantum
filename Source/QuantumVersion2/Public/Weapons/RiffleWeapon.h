@@ -9,6 +9,7 @@
 
 class UNiagaraSystem;
 class UNiagaraComponent;
+class USoundCue;
 
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnClipEmpty, ARiffleWeapon*);
 
@@ -78,16 +79,17 @@ public:
 
 	bool IsAmmoFull() const ;
 
-	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+	USkeletalMeshComponent* WeaponMesh;
 
+	virtual void Zoom(bool Enabled) {}
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
 	//creatin uproperty which is going to allow us to modify our weapon in blueprints
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-	USkeletalMeshComponent* WeaponMesh;
+	
 
 	//creating our socket name 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
@@ -123,6 +125,9 @@ protected:
 
 	void MakeHit(FHitResult& HitResult, const FVector& TraceStart, const FVector& TraceEnd);
 	virtual bool GetTraceData(FVector& TraceStart, FVector& TraceEnd) const;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundCue* ShotSoundCue;
 
 private:
 	

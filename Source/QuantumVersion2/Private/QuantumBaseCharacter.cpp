@@ -11,6 +11,8 @@
 #include "Components/CapsuleComponent.h"
 #include "Camera/CameraShakeBase.h"
 #include "UI/PlayerHUDWidget.h"
+#include "Sound/SoundCue.h"
+#include "Kismet/GameplayStatics.h"
 #include "GameFramework/Controller.h"
 
 
@@ -47,6 +49,19 @@ void AQuantumBaseCharacter::BeginPlay()
 void AQuantumBaseCharacter::OnHealthChanged(float Health,float DeltaHealth)
 {
 	
+}
+
+void AQuantumBaseCharacter::TurnOff()
+{
+	Super::TurnOff();
+	WeaponComponent->EndFire();
+	WeaponComponent->Zoom(false);
+}
+
+void AQuantumBaseCharacter::Reset()
+{   Super::Reset();
+	WeaponComponent->EndFire();
+	WeaponComponent->Zoom(false);
 }
 
 void AQuantumBaseCharacter::OnGroundLanded(const FHitResult& Hit)
@@ -90,6 +105,7 @@ void AQuantumBaseCharacter::OnDeath()
 	GetCapsuleComponent()->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	//stopping the fire when we are dead
 	WeaponComponent->EndFire();
+	WeaponComponent->Zoom(false);
 
 	//whene we are dead destroying weapon
 	WeaponComponent->DestroyWeapon();
@@ -97,6 +113,7 @@ void AQuantumBaseCharacter::OnDeath()
 	//setting our character to ragdoll
 	GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	GetMesh()->SetSimulatePhysics(true);
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(),DeathSoundCue,GetActorLocation());
 	
 }
 

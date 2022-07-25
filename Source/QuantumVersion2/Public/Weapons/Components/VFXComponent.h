@@ -9,6 +9,7 @@
 
 class UNiagaraSystem;
 class UPhysicalMaterial;
+class USoundCue;
 
 
 //creating new struct for our decal data
@@ -42,6 +43,9 @@ struct FImpactData
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "VFX")
 	FDecalData DecalData;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "SFX")
+	USoundCue* ImpactSoundCue;
 }
 ;
 

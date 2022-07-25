@@ -60,6 +60,8 @@ public:
 	ARiffleWeapon* CurrentWeapon = nullptr;
 
 	bool NeedAmmo(TSubclassOf<ARiffleWeapon> WeaponType);
+	
+	void Zoom(bool Enabled);
 
 	
 	

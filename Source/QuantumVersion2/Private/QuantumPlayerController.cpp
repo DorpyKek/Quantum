@@ -5,6 +5,7 @@
 #include "Components/RespawnComponent.h"
 #include "QuantumGameModeBase.h"
 #include "UI/PauseWidget.h"
+#include "QuantumGameInstance.h"
 #include "Gameframework/GameModeBase.h"
 
 AQuantumPlayerController::AQuantumPlayerController()
@@ -40,6 +41,7 @@ void AQuantumPlayerController::SetupInputComponent()
 	if (!InputComponent) return;
 
 	InputComponent->BindAction("Pause", IE_Pressed, this, &AQuantumPlayerController::OnGamePaused);
+	InputComponent->BindAction("MuteSound", IE_Pressed, this, &AQuantumPlayerController::OnMuteSound);
 	
 }
 
@@ -63,6 +65,16 @@ void AQuantumPlayerController::OnMatchStateChanged(EQuantumMatchState State)
 		SetInputMode(FInputModeUIOnly());
 		bShowMouseCursor = true;
 	}
+}
+
+void AQuantumPlayerController::OnMuteSound()
+{
+	if (!GetWorld()) return;
+
+	const auto GameInstance = GetWorld()->GetGameInstance<UQuantumGameInstance>();
+	if (!GameInstance) return;
+
+	GameInstance->ToggleVolume();
 }
 
 

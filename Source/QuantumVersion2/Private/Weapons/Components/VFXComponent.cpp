@@ -6,6 +6,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Components/DecalComponent.h"
 #include "Math/Vector.h"
+#include "Sound/SoundCue.h"
 #include "PhysicalMaterials/PhysicalMaterial.h"
 
 UVFXComponent::UVFXComponent()
@@ -31,6 +32,7 @@ void UVFXComponent::PlayFireFX(const FHitResult& Hit)
 	
 	//spawning the niagara effect
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ImpactData.NiagaraEffect, Hit.ImpactPoint, Hit.ImpactNormal.Rotation());
+	UGameplayStatics::SpawnSoundAtLocation(GetWorld(), ImpactData.ImpactSoundCue, Hit.ImpactPoint);
 
 
 	//spawning the decal

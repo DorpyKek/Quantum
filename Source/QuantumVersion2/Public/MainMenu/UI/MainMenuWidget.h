@@ -13,6 +13,7 @@ class UQuantumGameInstance;
 class ULevelSelectorWidget;
 class UWidgetAnimation;
 class UTextBlock;
+class USoundCue;
 /**
  * 
  */
@@ -44,6 +45,12 @@ protected:
 	
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* QuitGameTextBlock;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundCue* StartGameSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundCue* OpenWidgetSound;
 
 	FTimerHandle AnimationTimerHandle;
 

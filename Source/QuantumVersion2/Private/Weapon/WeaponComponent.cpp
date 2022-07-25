@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Animations/ReloadAnimNotify.h"
 #include "Components/HealthComponent.h"
+#include "QuantumGameModeBase.h"
 #include "QuantumBaseCharacter.h"
 #include "Animations/EquipAnimNotify.h"
 
@@ -72,6 +73,7 @@ void UWeaponComponent::EquipWeapon(int32 WeaponIndex)
 
 	if(CurrentWeapon)
 	{
+		CurrentWeapon->Zoom(false);
 		CurrentWeapon->StopFire();
 		AttachWeaponToSocket(CurrentWeapon, Character->GetMesh(), WeaponArmorySocketName);
 	}
@@ -146,7 +148,11 @@ void UWeaponComponent::DestroyWeapon()
 	//creating for cycle to destroy all weapons
 	for (int32 i = 0; i < Weapons.Num(); i++)
 	{
-		Weapons[i]->SetLifeSpan(5.0f);
+		const auto GameMode = Cast<AQuantumGameModeBase>(GetWorld()->GetAuthGameMode());
+		if (!GameMode) continue;
+
+		FDataOfGame DataOfGame;
+		Weapons[i]->SetLifeSpan(DataOfGame.RespawnSeconds);
 	}
 }
 
@@ -198,7 +204,7 @@ void UWeaponComponent::OnReloadFinished(USkeletalMeshComponent* MeshComponent)
 
 bool UWeaponComponent::CanFire()
 {
-	return CurrentWeapon && !AnimationChange && !ReloadAnimation;
+	return CurrentWeapon && !AnimationChange && !ReloadAnimation ;
 }
 
 bool UWeaponComponent::CanSwap()
@@ -240,6 +246,14 @@ bool UWeaponComponent::NeedAmmo(TSubclassOf<ARiffleWeapon> WeaponType)
 		}
 	}
 	return false;
+}
+
+void UWeaponComponent::Zoom(bool Enabled)
+{
+	if (CurrentWeapon)
+	{
+		CurrentWeapon->Zoom(Enabled);
+	}
 }
 
 void UWeaponComponent::ChangeClip()
