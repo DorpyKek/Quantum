@@ -18,7 +18,10 @@ enum class EQuantumMatchState : uint8
 	WaitToStart = 0,
 	Playing,
 	Pause,
-	GameOver
+	GameOver,
+	Setting,
+	VideoSetting,
+	SoundSetting
 };
 
 USTRUCT(BlueprintType)
@@ -80,6 +83,8 @@ public:
 	virtual bool ClearPause() override;
 
 	int32 RoundsLeft();
+
+	void SetMatchState(EQuantumMatchState State);
 	
 	
 protected:
@@ -116,7 +121,7 @@ private:
 
 	void StopAllFire();
 
-	void SetMatchState(EQuantumMatchState State);
+	
 
 	
 	

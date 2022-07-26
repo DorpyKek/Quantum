@@ -3,6 +3,7 @@
 
 #include "UI/PauseWidget.h"
 #include "Gameframework/GameModeBase.h"
+#include "QuantumGameModeBase.h"
 #include "QuantumPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "QuantumGameInstance.h"
@@ -24,6 +25,10 @@ void UPauseWidget::NativeOnInitialized()
 	{
 		MainMenuButton->OnClicked.AddDynamic(this, &UPauseWidget::ReturnToMainMenu);
 	}
+
+	check(SettingsButton);
+
+	SettingsButton->OnClicked.AddDynamic(this, &UPauseWidget::OpenSettings);
 }
 
 
@@ -50,4 +55,14 @@ void UPauseWidget::ReturnToMainMenu()
 	const auto LevelName = GameInstance->GetMainMenuLevel();
 
 	UGameplayStatics::OpenLevel(GetWorld(), LevelName);
+}
+
+void UPauseWidget::OpenSettings()
+{
+	const auto GameMode = Cast<AQuantumGameModeBase>(GetWorld()->GetAuthGameMode());
+
+	GameMode->SetMatchState(EQuantumMatchState::Setting);
+
+	ResumeButton->SetVisibility(ESlateVisibility::Hidden);
+	MainMenuButton->SetVisibility(ESlateVisibility::Hidden); 
 }

@@ -5,10 +5,12 @@
 #include "Components/Button.h"
 #include "QuantumGameInstance.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "QuantumGameModeBase.h"
 #include "Components/HorizontalBox.h"
 #include "Components/TextBlock.h"
 #include "MainMenu/UI/LevelSelectorWidget.h"
 #include "Kismet/GameplayStatics.h"
+#include "UI/Settings/VideoSettingsWidget.h"
 #include "Sound/SoundCue.h"
 
 void UMainMenuWidget::NativeOnInitialized()
@@ -31,6 +33,9 @@ void UMainMenuWidget::NativeOnInitialized()
 		QuitGameTextBlock->SetVisibility(ESlateVisibility::Hidden);
 	}
 
+	check(SettingsButton);
+	SettingsButton->OnClicked.AddDynamic(this, &ThisClass::OpenSettings);
+	
 	CreateLevelItems();
 }
 
@@ -58,6 +63,15 @@ void UMainMenuWidget::OnButtonUnhovered()
 	PlayAnimationReverse(QuitAnimation);
 	VisibilityClose();
 	GetWorld()->GetTimerManager().ClearTimer(AnimationTimerHandle);
+	
+}
+
+void UMainMenuWidget::OpenSettings()
+{
+	if (!GetWorld()) return;
+	const auto GameMode = Cast<AQuantumGameModeBase>(GetWorld()->GetAuthGameMode());
+
+	GameMode->SetMatchState(EQuantumMatchState::Setting);
 	
 }
 

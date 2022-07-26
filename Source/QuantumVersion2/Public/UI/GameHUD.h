@@ -29,6 +29,15 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
 	TSubclassOf<UUserWidget> GameOverWidgetClass;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
+	TSubclassOf<UUserWidget> SettingsWidget;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
+	TSubclassOf<UUserWidget> VideoSettingsWidget;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
+	TSubclassOf<UUserWidget> AudioSettingsWidget;
+
 	//creaiting begin play
 	virtual void BeginPlay() override;
 	

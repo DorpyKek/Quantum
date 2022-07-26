@@ -14,6 +14,7 @@ class ULevelSelectorWidget;
 class UWidgetAnimation;
 class UTextBlock;
 class USoundCue;
+class UVideoSettingsWidget;
 /**
  * 
  */
@@ -56,10 +57,14 @@ protected:
 
 	virtual void OnAnimationFinished_Implementation(const UWidgetAnimation* Animation) override;
 
+	UPROPERTY(meta = (BindWidget))
+	UButton* SettingsButton;
+
 private:
 
 	UPROPERTY()
 	TArray<ULevelSelectorWidget*>LevelSelectorWidgets;
+	
 
 	void CreateLevelItems();
 
@@ -82,5 +87,11 @@ private:
 
 	UFUNCTION()
 	void OnButtonUnhovered();
+
+	UFUNCTION()
+	void OpenSettings();
+
+	UPROPERTY()
+	UVideoSettingsWidget* VideoSettingsWidget;
 	
 };

@@ -27,6 +27,9 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	UButton* MainMenuButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* SettingsButton;
 		
 
 private:
@@ -35,4 +38,7 @@ private:
 
 	UFUNCTION()
 	void ReturnToMainMenu();
+
+	UFUNCTION()
+	void OpenSettings();
 };

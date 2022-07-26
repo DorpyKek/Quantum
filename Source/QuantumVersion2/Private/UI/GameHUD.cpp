@@ -23,6 +23,9 @@ void AGameHUD::BeginPlay()
 	GameWidgets.Add(EQuantumMatchState::Playing, CreateWidget<UBaseWidget>(GetWorld(), PlayerHUDWidgetClass));
 	GameWidgets.Add(EQuantumMatchState::Pause, CreateWidget<UBaseWidget>(GetWorld(), PauseWidgetClass));
 	GameWidgets.Add(EQuantumMatchState::GameOver, CreateWidget<UBaseWidget>(GetWorld(), GameOverWidgetClass));
+	GameWidgets.Add(EQuantumMatchState::Setting, CreateWidget<UBaseWidget>(GetWorld(), SettingsWidget));
+	GameWidgets.Add(EQuantumMatchState::VideoSetting, CreateWidget<UBaseWidget>(GetWorld(), VideoSettingsWidget));
+	GameWidgets.Add(EQuantumMatchState::SoundSetting, CreateWidget<UBaseWidget>(GetWorld(), AudioSettingsWidget));
 
 	for (auto GameWidgetPair : GameWidgets)
 	{
